@@ -1,7 +1,7 @@
 import { Typography as T } from '@material-ui/core'
 import styles from '../../public/styles/MedicalStyles'
 import PublicationListingStyles from '../../public/styles/PublicationListingStyles'
-import { RichText } from '@prismicio/react'
+import * as prismicH from '@prismicio/helpers'
 import Link from 'next/link'
 
 export default function CardRender(props) {
@@ -30,7 +30,7 @@ export default function CardRender(props) {
                   </div>
 
                   <T className={listingStyles.newsTitle}>
-                    {RichText.asText(news.data.title)}
+                    {prismicH.asText(news.data.title)}
                   </T>
 
                   <T className={listingStyles.newsDesc}>
@@ -80,7 +80,7 @@ export default function CardRender(props) {
                   </div>
 
                   <T className={listingStyles.newsTitle}>
-                    {RichText.asText(news.data.title)}
+                    {prismicH.asText(news.data.title)}
                   </T>
 
                   <T className={listingStyles.newsDesc}>

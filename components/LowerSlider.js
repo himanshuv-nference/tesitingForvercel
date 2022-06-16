@@ -3,11 +3,11 @@ import styles from '../public/styles/MedicalStyles'
 import useStyles from '../public/styles/HomepageStyles'
 import { Typography as T } from '@material-ui/core'
 import React from 'react'
-import { RichText } from '@prismicio/react'
+import * as prismicH from '@prismicio/helpers'
 import { useRouter } from 'next/router'
-import _ from 'lodash'
 import clsx from 'clsx'
 import Link from 'next/link'
+
 function Slider2(props) {
   const homepageStyles = useStyles()
 
@@ -21,7 +21,7 @@ function Slider2(props) {
               {item.data.published_in.text}
             </T>
             <T className={homepageStyles.slider2head}>
-              {RichText.asText(item.data.title)}
+              {prismicH.asText(item.data.title)}
             </T>
             <T
               className={homepageStyles.slider2disc}
@@ -50,7 +50,7 @@ function Slider2mobile(props) {
             {item.data.published_in.text}
           </T>
           <T className={homepageStyles.slider2head}>
-            {RichText.asText(item.data.title)}
+            {prismicH.asText(item.data.title)}
           </T>
           <T
             className={homepageStyles.slider2disc}

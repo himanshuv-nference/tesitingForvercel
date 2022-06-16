@@ -1,8 +1,7 @@
 import styles from '../../public/styles/MedicalStyles'
 import PublicationListingStyles from '../../public/styles/PublicationListingStyles'
 import { Typography as T } from '@material-ui/core'
-import { Date, RichText } from '@prismicio/react'
-import clsx from 'clsx'
+import * as prismicH from '@prismicio/helpers'
 import Link from 'next/link'
 
 export default function SliderMobile(props) {
@@ -17,7 +16,7 @@ export default function SliderMobile(props) {
           <T className={listingStyles.sliderDate}>{item.data.dt_published}</T>
         </div>
         <T className={listingStyles.SliderTitle}>
-          {RichText.asText(item.data.title)}
+          {prismicH.asText(item.data.title)}
         </T>
         {item.data.abstract ? (
           <T

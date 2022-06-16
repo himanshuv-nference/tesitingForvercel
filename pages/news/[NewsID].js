@@ -3,7 +3,7 @@ import { Typography as T } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { useState, useEffect } from 'react'
 import * as prismic from '@prismicio/client'
-import { RichText } from '@prismicio/react'
+import { PrismicRichText } from '@prismicio/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
@@ -86,10 +86,10 @@ export default function News() {
               <T className={style.back}>{'<'} Back to All News</T>
             </a>
           </Link>
-          <T className={style.title}>{RichText.asText(news.data.title)}</T>
+          <T className={style.title}>{prismicH.asText(news.data.title)}</T>
 
           <T>
-            <RichText render={news.data.internal_article_richtext} />
+            <PrismicRichText field={news.data.internal_article_richtext} />
           </T>
         </div>
         <style jsx global>{`

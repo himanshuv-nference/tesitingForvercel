@@ -1,11 +1,13 @@
 import styles from '../../public/styles/MedicalStyles'
 import PublicationListingStyles from '../../public/styles/PublicationListingStyles'
 import { Typography as T } from '@material-ui/core'
-import { RichText } from '@prismicio/react'
+import { PrismicRichText } from '@prismicio/react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import ReactReadMoreReadLess from 'react-read-more-read-less'
+import * as prismicH from '@prismicio/helpers'
+
 export default function CardRender(props) {
   const [show, setShow] = useState(false)
   const seeMore = () => {
@@ -24,7 +26,7 @@ export default function CardRender(props) {
           <Link href={props.doc.data.url}>
             <a target="_blank" className={listingStyles.nav}>
               <T className={listingStyles.cardTitle}>
-                {RichText.asText(props.doc.data.title)}
+                {prismicH.asText(props.doc.data.title)}
               </T>
             </a>
           </Link>
@@ -32,7 +34,7 @@ export default function CardRender(props) {
           <Link href={`/publications/${props.doc.id}`}>
             <a className={listingStyles.nav}>
               <T className={listingStyles.cardTitle}>
-                {RichText.asText(props.doc.data.title)}
+                {prismicH.asText(props.doc.data.title)}
               </T>
             </a>
           </Link>
@@ -43,7 +45,7 @@ export default function CardRender(props) {
               <T className={listingStyles.postedIn}>Published in</T>
               <div className={listingStyles.underlineFlex}>
                 <T className={clsx(listingStyles.postedIn)}>
-                  {RichText.render(props.doc.data.published_in)}
+                  <PrismicRichText field={props.doc.data.published_in} />
                 </T>
                 <T className={clsx(listingStyles.postedIn)}>
                   ({props.doc.data.dt_published})
@@ -59,7 +61,7 @@ export default function CardRender(props) {
                 <T className={listingStyles.postedIn}>Preprint : </T>
                 <div className={listingStyles.underlineFlex}>
                   <T className={clsx(listingStyles.postedIn)}>
-                    {RichText.render(props.doc.data.posted_in)}
+                    <PrismicRichText field={props.doc.data.posted_in} />
                   </T>
                   <T className={clsx(listingStyles.postedIn)}>
                     ({props.doc.data.dt_posted})
@@ -82,7 +84,7 @@ export default function CardRender(props) {
               </T>
 
               <T className={clsx(listingStyles.postedIn)}>
-                {RichText.render(props.doc.data.featured_in)}
+                <PrismicRichText field={props.doc.data.featured_in} />
               </T>
             </div>
           ) : (
@@ -102,7 +104,7 @@ export default function CardRender(props) {
                   Cited by
                 </T>
                 <T className={clsx(listingStyles.postedIn)}>
-                  {RichText.render(props.doc.data.cited_by)}
+                  <PrismicRichText field={props.doc.data.cited_by} />
                 </T>
               </div>
             ) : (

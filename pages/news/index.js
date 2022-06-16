@@ -4,7 +4,6 @@ import styles from '../../public/styles/MedicalStyles'
 import PublicationListingStyles
   from '../../public/styles/PublicationListingStyles'
 import * as prismic from '@prismicio/client'
-import {Date} from '@prismicio/react'
 import {useState, useEffect} from 'react'
 
 const theNewYorksTimess = '/NewsRoomImages/Group 1213.svg'

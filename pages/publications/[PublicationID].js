@@ -10,7 +10,7 @@ const pdfPlaceholder = '/PublicationPageImages/image49.svg'
 import { useState, useEffect } from 'react'
 import Loading from '../../components/Loading/Loading'
 import * as prismic from '@prismicio/client'
-import { RichText } from '@prismicio/react'
+import { PrismicRichText } from '@prismicio/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
@@ -244,7 +244,7 @@ function Publication() {
           <div className={pageStyles.box}>
             <div className={pageStyles.boxLeft}>
               <T className={pageStyles.title}>
-                {RichText.asText(pub.data.title)}
+                {prismicH.asText(pub.data.title)}
               </T>
               <div className={pageStyles.datediv}>
                 <T className={pageStyles.date}>{pub.data.dt_published}</T>
@@ -273,7 +273,7 @@ function Publication() {
               </div>
 
               <T className={pageStyles.abstract}>
-                {RichText.asText(pub.data.summary)}
+                {prismicH.asText(pub.data.summary)}
               </T>
               <div className={pageStyles.authdiv}>
                 <T className={pageStyles.authhead}>Authors: </T>

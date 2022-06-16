@@ -2,7 +2,7 @@ import React from 'react'
 import TermsStyle from '../public/styles/termsStyle'
 import { Typography as T } from '@material-ui/core'
 import * as prismic from '@prismicio/client'
-import { RichText } from '@prismicio/react'
+import { PrismicRichText } from '@prismicio/react'
 
 const apiEndpoint = 'https://nference.prismic.io/api/v2'
 const accessToken =
@@ -32,7 +32,7 @@ function PrivacyPolicy({ info }) {
       <T className={style.head}>Privacy Policy</T>
       {/* <T className={style.subHead}>NFERENCE, INC.</T> */}
       <T className={style.content}>
-        <RichText render={info[0].data.content} />
+        <PrismicRichText field={info[0].data.content} />
       </T>
     </div>
   )

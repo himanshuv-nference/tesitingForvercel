@@ -1,6 +1,6 @@
 import { Typography as T } from '@material-ui/core'
 import styles from '../../public/styles/MedicalStyles'
-import { RichText } from '@prismicio/react'
+import { PrismicRichText } from '@prismicio/react'
 import Link from 'next/link'
 import BlogListingStyles from '../../public/styles/BlogListingStyles'
 
