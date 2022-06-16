@@ -105,7 +105,7 @@ export default function Navbar() {
           <div className={styles.image}>
             <Link href="/">
               <a>
-                <img src={logo} />
+                <img src={logo} alt={'nference'} />
               </a>
             </Link>
           </div>
