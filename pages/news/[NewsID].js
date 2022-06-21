@@ -6,6 +6,7 @@ import * as prismic from '@prismicio/client'
 import { PrismicRichText } from '@prismicio/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import * as prismicH from '@prismicio/helpers'
 
 const apiEndpoint = 'https://nference.prismic.io/api/v2'
 const accessToken =
