@@ -2,17 +2,17 @@ import React from 'react'
 import { Typography as T } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import { useState, useEffect } from 'react'
-import Prismic from '@prismicio/client'
+import * as prismic from '@prismicio/client'
 const twittericon = '/FooterImages/Combined-Shape (1).svg'
 const linkIcon = '/FooterImages/Group 3627.svg'
-import { RichText } from 'prismic-reactjs'
+import { PrismicRichText } from '@prismicio/react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import BlogListingStyles from '../../public/styles/BlogListingStyles'
 import dynamic from 'next/dynamic'
-import { NferxModal } from 'nferx-core-ui'
 import { Icon } from '@material-ui/core'
 import ClearIcon from '@material-ui/icons/Clear'
+import NferxModal from '../../components/NferxModal/NferxModal'
 
 const DynamicOpenSeaViewer = dynamic(
   () => import('../../components/SeaDragonViewer'),
@@ -23,7 +23,7 @@ const apiEndpoint = 'https://nference.prismic.io/api/v2'
 const accessToken =
   'MC5ZUi1ZbXhJQUFDd0FXY05N.FEXvv73vv73vv70L77-977-977-9bVlJeh8dfO-_vQUpMzEMYO-_ve-_ve-_vVfvv70JS--_vQg' // This is where you would add your access token for a Private repository
 
-const Client = Prismic.client(apiEndpoint, { accessToken })
+const client = prismic.createClient(apiEndpoint, { accessToken })
 
 const NewStyles = makeStyles({
   body: {
@@ -81,8 +81,8 @@ export default function News() {
   useEffect(() => {
     const fetchData = async () => {
       if (!params.isReady) return
-      const response = await Client.query(
-        Prismic.Predicates.at('document.type', 'nference_blog'),
+      const response = await client.query(
+        prismic.predicate.at('document.type', 'nference_blog'),
       ).then((response) => {
         {
           const resultPublication = response.results.find((x) => x.id === ID)

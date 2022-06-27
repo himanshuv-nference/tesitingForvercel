@@ -1,3 +1,15 @@
+# prismic dev
+
+Install prismic-cli
+
+`npm install -global prismic-cli`
+
+Login
+
+`prismic login`
+
+
+
 # nference-web
 
 ### How to deploy in production - initial deployment

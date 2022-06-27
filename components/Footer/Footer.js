@@ -1,9 +1,7 @@
-import { Typography as T } from '@material-ui/core'
-import { Icon } from '@material-ui/core'
-import { TextField, NferxModal } from 'nferx-core-ui'
+import { Typography as T, Icon, TextField } from '@material-ui/core'
 import React from 'react'
+import NferxModal from '../NferxModal/NferxModal'
 import { useRouter } from 'next/router'
-
 const logo = '/NavbarImages/nferencelognav.svg'
 const fbicon = '/FooterImages/Combined-Shape.svg'
 const twittericon = '/FooterImages/Combined-Shape (1).svg'
@@ -11,7 +9,7 @@ const linkIcon = '/FooterImages/Group 3627.svg'
 import ClearIcon from '@material-ui/icons/Clear'
 import emailjs from 'emailjs-com'
 import Link from 'next/link'
-import useStyles from '../public/styles/FooterStyles'
+import useStyles from './FooterStyles'
 
 export default function Footer() {
   const location = useRouter()
@@ -97,43 +95,58 @@ export default function Footer() {
             <div>
               <div className={styles.inputname}>
                 <TextField
+                  id={'company'}
                   placeholder={'Company'}
-                  variant={'underlined'}
+                  variant={'standard'}
                   className={styles.widthName}
                   value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, company: e.target.value })
+                  }
                 />
                 <TextField
+                  id={'title'}
                   placeholder={'Title'}
-                  variant={'underlined'}
+                  variant={'standard'}
                   className={styles.widthName}
                   value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, title: e.target.value })
+                  }
                 />
               </div>
               <div className={styles.inputname}>
                 <TextField
+                  id={'first_name'}
                   placeholder={'First Name'}
-                  variant={'underlined'}
+                  variant={'standard'}
                   value={formData.firstName}
                   className={styles.widthName}
-                  onChange={(e) => setFormData({ ...formData, firstName: e })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, firstName: e.target.value })
+                  }
                 />
                 <TextField
+                  id={'last_name'}
                   placeholder={'Last Name'}
-                  variant={'underlined'}
+                  variant={'standard'}
                   className={styles.widthName}
                   value={formData.lastName}
-                  onChange={(e) => setFormData({ ...formData, lastName: e })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, lastName: e.target.value })
+                  }
                 />
               </div>
               <div>
                 <TextField
+                  id={'email'}
                   placeholder={'Email'}
-                  variant={'underlined'}
+                  variant={'standard'}
                   className={styles.inputemail}
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   helperText={
                     errorFormData.email
                       ? 'Please give valid email and try again'
@@ -144,8 +157,9 @@ export default function Footer() {
               </div>
               <div>
                 <TextField
+                  id={'message'}
                   placeholder={'Message'}
-                  variant={'underlined'}
+                  variant={'standard'}
                   className={styles.inputmessage}
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e })}

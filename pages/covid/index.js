@@ -6,9 +6,8 @@ import clsx from 'clsx'
 const logo = '/CovidPageImages/Group 4221.svg'
 const topImage = '/nference-web/CovidPageImages/Frame4087.svg'
 const info = '/nference-web/CovidPageImages/info.svg'
-import { Typography as T } from 'nferx-core-ui'
-import Prismic from '@prismicio/client'
-import { Date } from 'prismic-reactjs'
+import T from '@material-ui/core/Typography'
+import * as prismic from '@prismicio/client'
 import { useState } from 'react'
 import DesktopCard from '../../components/Covid/Desktop_Card'
 import MobileCard from '../../components/Covid/Mobile_Card'
@@ -19,14 +18,14 @@ const apiEndpoint = 'https://nference.prismic.io/api/v2'
 const accessToken =
   'MC5ZUi1ZbXhJQUFDd0FXY05N.FEXvv73vv73vv70L77-977-977-9bVlJeh8dfO-_vQUpMzEMYO-_ve-_ve-_vVfvv70JS--_vQg' // This is where you would add your access token for a Private repository
 
-const Client = Prismic.client(apiEndpoint, { accessToken })
+const client = prismic.createClient(apiEndpoint, { accessToken })
 
 export async function getStaticProps() {
-  // const responseforCard = await Client.query(
-  //   Prismic.Predicates.at('document.type', 'covid_page'),
+  // const responseforCard = await client.query(
+  //   prismic.predicate.at('document.type', 'covid_page'),
   // )
-  // const responseforTopcard = await Client.query(
-  //   Prismic.Predicates.at('document.type', 'covid_page_card'),
+  // const responseforTopcard = await client.query(
+  //   prismic.predicate.at('document.type', 'covid_page_card'),
   // )
 
   // const Card = responseforTopcard.results

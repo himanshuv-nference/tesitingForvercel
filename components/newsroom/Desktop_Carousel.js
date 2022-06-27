@@ -1,7 +1,7 @@
 import { Typography as T } from '@material-ui/core'
 import styles from '../../public/styles/MedicalStyles'
 import PublicationListingStyles from '../../public/styles/PublicationListingStyles'
-import { RichText } from 'prismic-reactjs'
+import * as prismicH from '@prismicio/helpers'
 
 export default function Slider(props) {
   const listingStyles = PublicationListingStyles()
@@ -14,7 +14,7 @@ export default function Slider(props) {
         <div>
           <T className={listingStyles.Slidertop}>{item.data.source_name}</T>
           <T className={listingStyles.SliderTitle}>
-            {RichText.asText(item.data.title)}
+            {prismicH.asText(item.data.title)}
           </T>
           <T
             className={listingStyles.sliderDesc}

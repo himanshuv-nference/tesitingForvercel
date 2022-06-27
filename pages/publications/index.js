@@ -12,38 +12,52 @@ const CPlogo = '/PublicationPageImages/Group4325.svg'
 
 import clsx from 'clsx'
 import styles from '../../public/styles/MedicalStyles'
-import Prismic from '@prismicio/client'
-import { Date } from 'prismic-reactjs'
-import { useState, useEffect } from 'react'
-import {
-  HorizontalScroll,
-  Pagination,
-  ListItem,
-  ChipFilterSelect,
-} from 'nferx-core-ui'
-
+import * as prismic from '@prismicio/client'
+import {useState, useEffect} from 'react'
+import ChipFilterSelect
+  from '../../components/ChipFilter/ChipFilterSelect/ChipFilterSelect'
+import HorizontalScroll
+  from '../../components/HorizontalScroll/HorizontalScroll'
+import Pagination from '../../components/Pagination/Pagination'
+import ListItem from "../../components/ListItem/ListItem";
 import _ from 'lodash'
 import Slider from '../../components/Publication/Desktop_Carousel'
 import SliderMobile from '../../components/Publication/Mobile_Carousel'
 import CardRender from '../../components/Publication/Card'
 import Carousel from 'react-material-ui-carousel'
-const apiEndpoint = 'https://nference.prismic.io/api/v2'
-const accessToken =
-  'MC5ZUi1ZbXhJQUFDd0FXY05N.FEXvv73vv73vv70L77-977-977-9bVlJeh8dfO-_vQUpMzEMYO-_ve-_ve-_vVfvv70JS--_vQg' // This is where you would add your access token for a Private repository
-
-const Client = Prismic.client(apiEndpoint, { accessToken })
+import { prismicClient } from '../../utils/prismic'
 
 function isLastelement(arr) {
   let lastElement = arr[arr.length - 1]
-  return lastElement === undefined ? true : false
+  return lastElement === undefined
 }
 
-function PublicationListing() {
+export async function getStaticProps() {
+  let publications = []
+  let result = []
+  let pageNumber = 1
+  do {
+    publications = await prismicClient.query(
+      prismic.predicate.at('document.type', 'publications'),
+      { pageSize: 2, page: pageNumber },
+    )
+    result = [...result, ...publications.results]
+    pageNumber++
+  } while (!isLastelement(publications.results))
+  const pubInfoFilter = result.filter((el) => {
+    return el != null && el !== ''
+  })
+  return {
+    props: {
+      pubInfo: pubInfoFilter,
+    },
+  }
+}
 
-  const [pubInfo, setPubInfo] = useState([])
+function PublicationListing({ pubInfo }) {
   const defaultValue = []
   const deafaultDatevalue = null
-  const [allPublications, setallPublications] = useState([])
+  const [allPublications, setallPublications] = useState(pubInfo)
   const [doc, setDocData] = useState(null)
   const [pageNumber, setPageNumber] = useState(1)
   const [TotalPages, setTotalPages] = useState(1)
@@ -59,38 +73,16 @@ function PublicationListing() {
   const [recentFilter, setRecentFilter] = useState(deafaultDatevalue)
 
   const executeScroll = () => {
-    var element = document.getElementById('scroll');
-    var headerOffset = 100;
-    var elementPosition = element.getBoundingClientRect().top;
-    var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-  
-    window.scrollTo({
-         top: offsetPosition,
-         behavior: "smooth"
-    });
-  }   
+    var element = document.getElementById('scroll')
+    var headerOffset = 100
+    var elementPosition = element.getBoundingClientRect().top
+    var offsetPosition = elementPosition + window.pageYOffset - headerOffset
 
-  useEffect(() => {
-    const fetchData = async () =>{
-    let publications = []
-    let result = []
-    let pageNumber = 1
-    do {
-      publications = await Client.query(
-        Prismic.Predicates.at('document.type', 'publications'),
-        { pageSize: 5, page: pageNumber },
-      )
-      result = [...result, ...publications.results]
-      pageNumber++
-    } while (!isLastelement(publications.results))
-    const pubInfoFilter = result.filter((el) => {
-      return el != null && el != ''
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth',
     })
-    setPubInfo(pubInfoFilter)
-    setallPublications(pubInfoFilter)
   }
-  fetchData()
-  }, [])
 
   useEffect(() => {
     setTotalPages(pubInfo.length)

@@ -1,18 +1,13 @@
-import styles from '../../public/styles/MedicalStyles'
 import PublicationListingStyles from '../../public/styles/PublicationListingStyles'
 import { Typography as T } from '@material-ui/core'
-import { RichText } from 'prismic-reactjs'
+import { PrismicRichText } from '@prismicio/react'
 import clsx from 'clsx'
-import Link from 'next/link'
+import * as prismicH from '@prismicio/helpers'
 
 export default function Slider(props) {
   const listingStyles = PublicationListingStyles()
   const { item } = props
-  var x = RichText.asText(item.data.title)
-  if (
-    (x =
-      'Building a best-in-class de-identification tool for electronic medical records through ensemble learning')
-  )
+
     return (
       <>
         <div className={listingStyles.slidercontainer}>
@@ -28,7 +23,7 @@ export default function Slider(props) {
           <div>
             <T className={listingStyles.Slidertop}>FEATURED</T>
             <T className={listingStyles.SliderTitle}>
-              {RichText.asText(item.data.title)}
+              {prismicH.asText(item.data.title)}
             </T>
             {item.data.abstract ? (
               <T
@@ -75,7 +70,7 @@ export default function Slider(props) {
               {' '}
               <T className={listingStyles.sliderAuth}>Featured in:</T>{' '}
               <T className={clsx(listingStyles.sliderAuth)}>
-                {RichText.render(item.data.featured_in)}
+                <PrismicRichText field={item.data.featured_in} />
               </T>
             </div>
             {/* <div className={listingStyles.authdiv}>
@@ -87,7 +82,7 @@ export default function Slider(props) {
                 listingStyles.sliderAuth,
               )}
             >
-              {RichText.render(item.data.cited_by)}
+              {PrismicRichText.render(item.data.cited_by)}
             </T>
           </div> */}
           </div>

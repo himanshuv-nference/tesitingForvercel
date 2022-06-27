@@ -3,12 +3,9 @@ import { Typography as T } from '@material-ui/core'
 import BlogListingStyles from '../../public/styles/BlogListingStyles'
 
 import styles from '../../public/styles/MedicalStyles'
-import Prismic from '@prismicio/client'
+import * as prismic from '@prismicio/client'
 import { useState, useEffect } from 'react'
-import {
-  Pagination,
-} from 'nferx-core-ui'
-
+import Pagination from '../../components/Pagination/Pagination'
 import _ from 'lodash'
 import CardRender from '../../components/Blog/Card'
 const apiEndpoint = 'https://nference.prismic.io/api/v2'
@@ -17,43 +14,41 @@ const accessToken =
 
 const person1 = '/BlogImages/Group3927.svg' 
 const person2 = '/BlogImages/Group1254.svg' 
-const Client = Prismic.client(apiEndpoint, { accessToken })
+const client = prismic.createClient(apiEndpoint, { accessToken })
 
 function isLastelement(arr) {
   let lastElement = arr[arr.length - 1]
   return lastElement === undefined ? true : false
 }
-function BlogListing() {
-  const [pubInfo, setPubInfo] = useState([])
-  const [allPublications, setallPublications] = useState([])
+export async function getStaticProps() {
+  let publications = []
+  let result = []
+  let pageNumber = 1
+  do {
+    publications = await client.query(
+      prismic.predicate.at('document.type', 'nference_blog'),
+      { pageSize: 50, page: pageNumber },
+    )
+    result = [...result, ...publications.results]
+    pageNumber++
+  } while (!isLastelement(publications.results))
+  const pubInfoFilter = result.filter((el) => {
+    return el != null && el != ''
+  })
+  return {
+    props: {
+      pubInfo: pubInfoFilter,
+    },
+  }
+}
+
+function BlogListing({ pubInfo }) {
+  const [allPublications, setallPublications] = useState(pubInfo)
   const [filteredPublications, setFilteredPublications] = useState([])
   const [pageNumber, setPageNumber] = useState(1)
   const [pageSize, setpageSize] = useState(5)
   
-
   const listingStyles = BlogListingStyles()
-
-  useEffect(() => {
-    const fetchData = async () => {
-    let publications = []
-    let result = []
-    let pageNumber = 1
-    do {
-      publications = await Client.query(
-        Prismic.Predicates.at('document.type', 'nference_blog'),
-        { pageSize: 50, page: pageNumber },
-      )
-      result = [...result, ...publications.results]
-      pageNumber++
-    } while (!isLastelement(publications.results))
-    const pubInfoFilter = result.filter((el) => {
-      return el != null && el != ''
-    })
-    setPubInfo(pubInfoFilter)
-    setallPublications(pubInfoFilter)
-  }
-  fetchData()
-  }, [])
 
   useEffect(() => {
     let filterPublications =[]
@@ -64,7 +59,7 @@ function BlogListing() {
       )
     })
     setFilteredPublications(filterPublications)
-  }, [allPublications])
+  }, [pageNumber])
 
   let filterPublications = allPublications
   filterPublications = filterPublications.slice((pageNumber - 1) * 5, pageNumber * 5)

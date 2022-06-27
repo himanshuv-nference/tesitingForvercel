@@ -1,8 +1,8 @@
 import { Typography as T } from '@material-ui/core'
 import { Drawer } from '@material-ui/core'
 import { Icon } from '@material-ui/core'
-import dynamic from 'next/dynamic'
 import React from 'react'
+
 const logo = '/NavbarImages/nferencelognav.svg'
 import MenuIcon from '@material-ui/icons/Menu'
 import ClearIcon from '@material-ui/icons/Clear'
@@ -11,8 +11,9 @@ import useStyles from '../public/styles/NavbarStyles'
 import emailjs from 'emailjs-com'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import { TextField, NferxModal } from 'nferx-core-ui'
 import MenuComponent from './MenuComponent'
+import { TextField, ButtonBase } from '@material-ui/core'
+import NferxModal from './NferxModal/NferxModal'
 
 export default function Navbar() {
   const styles = useStyles()
@@ -104,7 +105,7 @@ export default function Navbar() {
           <div className={styles.image}>
             <Link href="/">
               <a>
-                <img src={logo} />
+                <img src={logo} alt={'nference'} />
               </a>
             </Link>
           </div>
@@ -162,12 +163,13 @@ export default function Navbar() {
               </Link>
             </div>
             <div>
-              <MenuComponent 
-               className={
-                splitLocation[1] === 'news' || splitLocation[1] === 'blog'
-                  ? styles.activeLink
-                  : styles.link
-              }/>
+              <MenuComponent
+                className={
+                  splitLocation[1] === 'news' || splitLocation[1] === 'blog'
+                    ? styles.activeLink
+                    : styles.link
+                }
+              />
             </div>
             <div>
               <Link href="/career">
@@ -238,7 +240,7 @@ export default function Navbar() {
                             })
                           }
                           placeholder={'Company'}
-                          variant={'underlined'}
+                          variant={'standard'}
                           className={styles.nameInput}
                         />
                         <TextField
@@ -247,7 +249,7 @@ export default function Navbar() {
                             setFormData({ ...formData, title: e })
                           }
                           placeholder={'Title'}
-                          variant={'underlined'}
+                          variant={'standard'}
                           className={styles.nameInput}
                         />
                       </div>
@@ -262,7 +264,7 @@ export default function Navbar() {
                           }
                           className={styles.nameInput}
                           placeholder={'First Name'}
-                          variant={'underlined'}
+                          variant={'standard'}
                         />
                         <TextField
                           value={formData.lastName}
@@ -274,7 +276,7 @@ export default function Navbar() {
                           }
                           className={styles.nameInput}
                           placeholder={'Last Name'}
-                          variant={'underlined'}
+                          variant={'standard'}
                         />
                       </div>
                       <div className={styles.inputemailDiv}>
@@ -284,7 +286,7 @@ export default function Navbar() {
                           }
                           value={formData.email}
                           placeholder={'Email'}
-                          variant={'underlined'}
+                          variant={'standard'}
                           helperText={
                             errorFormData.email
                               ? 'Please give valid email and try again'
@@ -305,7 +307,7 @@ export default function Navbar() {
                           value={formData.message}
                           placeholder={'Message'}
                           className={styles.inputmessage}
-                          variant={'underlined'}
+                          variant={'standard'}
                         />
                       </div>
 
@@ -447,7 +449,9 @@ export default function Navbar() {
                 </Link> */}
               </div>
               <div className={styles.selected} onClick={ModalOpen}>
-                <T onClick={toggle('top', false)}>Contact Us</T>
+                <ButtonBase onClick={toggle('top', false)}>
+                  Contact Us
+                </ButtonBase>
               </div>
             </Drawer>
           </div>
